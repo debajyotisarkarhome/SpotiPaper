@@ -275,6 +275,18 @@ qa = ["flake8 (==3.8.3)", "mypy (==0.782)"]
 testing = ["docopt", "pytest (<6.0.0)"]
 
 [[package]]
+name = "pillow"
+version = "9.3.0"
+description = "Python Imaging Library (Fork)"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-issues (>=3.0.1)", "sphinx-removed-in", "sphinxext-opengraph"]
+tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
+
+[[package]]
 name = "pluggy"
 version = "1.0.0"
 description = "plugin and hook calling mechanisms for python"
@@ -555,7 +567,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "flake8 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8.0,<3.9"
-content-hash = "a2812f18329c0b3ea26f7f85c1ee71398729993973390d7a084b9ddb25455fd6"
+content-hash = "9e47d8b66753baf045c73a05c46d6b5b87051fa3fec7575301bb5bfb14d69057"
 
 [metadata.files]
 aiohttp = []
@@ -582,6 +594,7 @@ numpy = []
 packaging = []
 pandas = []
 parso = []
+pillow = []
 pluggy = []
 pyflakes = []
 pyparsing = []

@@ -12,6 +12,7 @@ Flask = "^2.2.0"
 urllib3 = "^1.26.12"
 bs4 = "^0.0.1"
 pandas = "^1.5.2"
+Pillow = "^9.3.0"
 
 [tool.poetry.dev-dependencies]
 debugpy = "^1.6.2"

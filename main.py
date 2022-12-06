@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 import pandas as pd
 import uuid
 import json
+from PIL import Image, ImageEnhance
 
 app = Flask(__name__)
 
@@ -23,15 +24,31 @@ def createAndSend():
   playlist_link = args.get("playlist")
   device = args.get("device")
   headers = {"Accept": "application/json", "Authorization": "Bearer " + token}
-  res = json.loads(
-    requests.get("https://api.spotify.com/v1/playlists/" + playlist_link +
-                 "/tracks",
-                 headers=headers).text)
-  for i in range(0, len(res["items"])):
-    imagelist = res["items"][i]["track"]["album"]["images"]
-
-    print(imagelink)
-  return "1"
+  res = requests.get("https://api.spotify.com/v1/playlists/" + playlist_link +
+                     "/tracks",
+                     headers=headers)
+  print(res.status_code)
+  if (res.status_code == 200):
+    resinjson = json.loads(res.text)
+    imagelist = []
+    for i in range(0, len(resinjson["items"])):
+      imagelist.append(resinjson["items"][i]["track"]["album"]["images"][0]["url"])
+    numofimages = len(imagelist)
+    singleres = int(((1080*1920)/15)**0.5)
+    #return(imagelist)
+    if(device=="mobile"): 
+      collage = Image.new("RGBA", (1080,1920))
+    else:
+      collage = Image.new("RGBA", (1920,1080))
+    
+    for i in range(0,numofimages):
+      singlephoto = Image.open(requests.get(imagelist[i], stream=True).raw).convert("RGBA")
+      singlephoto = singlephoto.resize((singleres,singleres))  
+      collage.paste(singlephoto,(i*singleres,0))
+    collage.show()
+    return("1")
+  else:
+    return("Error Meow")
 
 
 if __name__ == "__main__":
